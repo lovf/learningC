@@ -1,23 +1,18 @@
-//指针类型的理解:
-//1.指针对应内存中的地址是哪个地址(指针的值所体现的)
-//2.这个内存地址所对应的内存大小(指针的类型所决定的)
 //********************************************指针的运算**************************************
 //***********************1.指针 + - 整数*******************8
 //#include <stdio.h>
 //#include <stdlib.h>
 //
 //int main(){
-//	//char* p = (char*)0x100;
-//	//printf("%p\n",p+1); // 00000101
-//	//int* p = (int*)0x100;
-//	//printf("%p\n", p + 1);//00000104
-//	//short* p = (short*)0x100;
-//	//printf("%p\n", p + 1);//00000102
-//	//double* p = (double*)0x100;
-//	//printf("%p\n", p + 1);//00000108
-//	double* p = (double*)0x100;
-//	printf("%p\n", p + 2);//00000110  进行的是十六进制的计算
-//
+//	char* p1 = (char*)0x100;
+//	printf("%p\n",p1+1); // 00000101
+//	int* p2 = (int*)0x100;
+//	printf("%p\n", p2 + 1);//00000104
+//	short* p3 = (short*)0x100;
+//	printf("%p\n", p3 + 1);//00000102
+//	double* p4 = (double*)0x100;
+//	printf("%p\n", p4 + 1);//00000108
+//	printf("%p\n", p4 + 2);//00000110  进行的是十六进制的计算
 //	system("pause");
 // 	return 0;
 //}
@@ -35,9 +30,9 @@
 //int main(){
 //	int arr[] = {1,2,3,4};
 //	int* p = &arr[0];
-//	printf("%p\n",arr);// 0135FD70  数组名直接打印会隐式转化会指针,指向首元素的地址
-//	printf("%p\n", p);//  0135FD70
-//	printf("%p\n",p+1); //指针+ 1  0135FD74
+//	printf("%p\n",arr);  //数组名直接打印会隐式转化会指针,指向首元素的地址
+//	printf("%p\n", p);
+//	printf("%p\n",p+1); //指针+ 1  
 //	system("pause");
 //	return 0;
 //}
@@ -79,21 +74,21 @@
 //**指针 - 指针必须满足的条件:
 //1.两个指针的类型相同.
 //2.两个指针必须指向同一个连续的内存空间.
-//#include <stdio.h>
-//#include <stdlib.h>
-//
-//int main(){
-//	int arr[4] = { 1, 2, 3, 4 };
-//	int* p1 = &arr[0];
-//	int* p2 = &arr[2];
-//	/*int ret = p2 - p1;
-//	printf("%d\n",ret);*/
-//	printf("%p\n", p1);
-//	printf("%p\n", p2);//地址相差 8个字节
-//	printf("%d\n",*p2 - *p1); // 2
-//	system("pause");
-//	return 0;
-//}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+	int arr[4] = { 1, 2, 3, 4 };
+	int* p1 = &arr[0];
+	int* p2 = &arr[2];
+	/*int ret = p2 - p1;
+	printf("%d\n",ret);*/
+	printf("%p\n", p1);
+	printf("%p\n", p2);//地址相差 8个字节
+	printf("%d\n", *p2 - *p1); // 2
+	system("pause");
+	return 0;
+}
 // 指针相减实际上两个指针之间隔了几个元素(与类型有关).
 //*********************************************************************************
 //****void* 的特殊性:只知道地址不知道大小,是不能进行指针的+ -
@@ -172,78 +167,3 @@
 //1.如果str1>str2,返回一个大于0的数.
 //2.如果str1<str2,返回一个小于0的数.
 //3.如果str1==str2,返回0.
-//**************************************************************************************
-//***********二级指针和二维数组***************
-//1.二级指针:本质上还是一级指针,只不过这个指针的指向内容还是一级指针.
-//2.二维数组:本质上还是一维数组,只不过数组的每个元素还是一维数组.
-//#include <stdio.h>
-//#include <stdlib.h>
-//
-//typedef int*  Inptr ;
-//int  main(){
-//	int num = 10;
-//	/*int* p = &num;
-//	int**pp = &p;
-//	printf("%d\n",**pp);*/
-//
-//	Inptr p = &num;
-//	Inptr* pp = &p;
-//	printf("%d\n", **pp);
-//	system("pause");
-//	return 0;
-//}
-//**********************************************************************************
-//指针数组:是一个数组,数组中的每一个元素都是指针变量.int* arr[]
-//数组指针:是一个指针,int (*arr)[]
-//int a[4] 变量名叫a,a的类型叫做:int[4]
-//int b[5] 变量名叫b,b的类型叫做:int[5]
-//#include <stdio.h>
-//#include <stdlib.h>
-//
-//int main(){
-//	int arr[4] = {1,2,3,4};
-//	int(*p)[4] = &arr; 
-//	return 0;
-//}
-//******************************************************************************************
-#include <stdio.h>
-#include <stdlib.h>
-
-int main(){
-	int arr[4] = { 1, 2, 3, 4 };
-	//printf("%d\n",sizeof(arr)); // 16 计算字符数组的字节长度
-	//printf("%d\n", sizeof(arr+0)); // 4 数组名参与运算会隐式转为指针(指针占4个字节)
-	//printf("%d\n", sizeof(*arr)); // 4  数组不能取*,但是指针可以取*,指向首元素的地址然后在解引用
-	//printf("%d\n", sizeof(*(arr+0))); // 4
-	printf("%d\n", sizeof(arr[0])); // 4
-	//printf("%d\n", sizeof(arr+1)); //  4
-	//printf("%d\n", sizeof(&arr)); // 4 数组指针
-	//printf("%d\n", sizeof(*&arr)); // 16 数组指针的解引用
-	//printf("%d\n", sizeof(&*arr)); // 4 数组指针
-	//printf("%d\n", sizeof(&arr+1)); // 4 数组指针+1仍然是指针
-	//printf("%d\n", sizeof(&arr[0]+1)); // 4 int*
-
-	system("pause");
-	return 0;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
